@@ -28,24 +28,15 @@ public class LikedSongs {
             ObjectMapper o = new ObjectMapper();
             List<JsonNode> rawSongs = new ArrayList<>();
 
-            // response.body() comes in bytes (raw data). this first has to be converted to string
             String jsonResponse = response.body().string();
 
-            // I convert the string into a Json object
             JsonNode jn = o.readTree(jsonResponse);
-            // Zoom in to the items field
             jn = jn.get("items");
-            // add each song item to the rawSongs list as a JsonNode
             for (JsonNode item : jn) rawSongs.add(item);
 
             System.out.println("Forwarding list of " + rawSongs.size() + " JsonNodes into WriteFile");
             return rawSongs;
-//            for (Object song
 
-//            Gson gson = new Gson();
-//
-//            Map<String, Object> map = gson.fromJson(jsonObject, new TypeToken<Map<String, Object>>() {}.getType());
-//            map.forEach((x, y) -> System.out.println("key: " + x + ", value: " + y));
         } catch (Exception e){
             e.printStackTrace();
             return null;

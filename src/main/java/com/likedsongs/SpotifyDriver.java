@@ -1,9 +1,26 @@
 package com.likedsongs;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 public class SpotifyDriver {
 
-    public static final int TOTAL_SONGS = 1138;
+    private static int TOTAL_SONGS;
 
+    static {        
+        Properties prop = new Properties();
+
+        try (InputStream input = new FileInputStream("src/main/resources/config.properties")) {
+            prop.load(input);
+            TOTAL_SONGS = Integer.parseInt(prop.getProperty("total.songs"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    @SuppressWarnings("static-access")
     public static void main(String[] args) throws Exception{
 
         GetCode g = new GetCode();

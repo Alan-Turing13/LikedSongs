@@ -4,15 +4,31 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import okhttp3.*;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.Properties;
 
 public class Authenticate {
 
     private static final String TOKEN_URI = "https://accounts.spotify.com/api/token";
-    private static final String CLIENT_ID = "333019fa8b494c60830378bfdf9c467b";
-    private static final String CLIENT_SECRET = "2746b8feff164346bd1b04be4f482785";
     private static final String REDIRECT = "http://localhost:8888/callback";
+    private static String CLIENT_ID;
+    private static String CLIENT_SECRET;    
+
+    static {        
+        Properties prop = new Properties();
+
+        try (InputStream input = new FileInputStream("src/main/resources/config.properties")) {
+            prop.load(input);
+            CLIENT_ID = prop.getProperty("client.id");
+            CLIENT_SECRET = prop.getProperty("client.secret");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     public static String getAccessToken(String code) {
         String accessToken = "";

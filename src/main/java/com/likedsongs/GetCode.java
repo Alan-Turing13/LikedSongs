@@ -5,16 +5,32 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import java.awt.*;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
 
 public class GetCode {
 
-    private static final String AUTHENTICATION_CODE_URI = "https://accounts.spotify.com/en/authorize?response_type=code&client_id=333019fa8b494c60830378bfdf9c467b&scope=user-library-read&redirect_uri=http://localhost:8888/callback";
+    private static String CLIENT_ID;
+
+    static {        
+        Properties prop = new Properties();
+
+        try (InputStream input = new FileInputStream("src/main/resources/config.properties")) {
+            prop.load(input);
+            CLIENT_ID = prop.getProperty("client.id");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private static final String AUTHENTICATION_CODE_URI = "https://accounts.spotify.com/en/authorize?response_type=code&client_id=" + CLIENT_ID + "&scope=user-library-read&redirect_uri=http://localhost:8888/callback";
     private static final CountDownLatch latch = new CountDownLatch(1);
     private String authCode = null;
 
@@ -52,7 +68,7 @@ public class GetCode {
         try {
             Desktop.getDesktop().browse(new URI(AUTHENTICATION_CODE_URI));
         } catch (URISyntaxException e) {
-            System.out.println("Shapoopy");
+            System.out.println("Error");
         }
 
         latch.await();

@@ -2,7 +2,6 @@ package com.likedsongs;
 
 import com.fasterxml.jackson.databind.*;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
@@ -14,7 +13,6 @@ public class WriteFile {
     public static void writeFile(List<JsonNode> json) throws IOException{
         Set<Song> songs = new HashSet<Song>();
 
-        ObjectMapper o = new ObjectMapper();
         JsonNode track = null;
         String name;
         String artist;
@@ -33,19 +31,12 @@ public class WriteFile {
             songs.add(new Song(name, artist, album, coverUrl));
         }
 
-
         FileWriter fw = new FileWriter("likedsongs.txt", true);
 
         for (Song song : songs) {
             fw.write(song.toString());
             System.out.println(song.toString() + "added to likedsongs.txt");
         }
-//        for (JsonElement song : json.getAsJsonArray())
-//            // from the song object, I want the "track" property
-//            songObj = song.getAsJsonObject();
-//            for (var prop : songObj.entrySet()) {
-//                track = prop.getValue();
-//            }
 
     }
 }

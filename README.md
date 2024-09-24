@@ -1,4 +1,10 @@
-An app that saves your Spotify liked songs to a txt file. What if you wanted to terminate your account but you wanted to remember
+### LIKED SONGS
+
+![landing page!](src/main/resources/liked-songs.jpg)
+
+(Check out [`LikedAlbums`](https://github.com/Alan-Turing13/LikedAlbums/tree/main) as well!) 
+
+This app saves your Spotify liked songs to a txt file. What if you wanted to terminate your account but you wanted to remember
 all the songs you'd saved? Then this app would come in handy. 
 
 The main challenge was to parse the massive amount of metadata supplied by Spotify's API. You only need the song title, album, artwork and artist.

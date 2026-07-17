@@ -1,0 +1,41 @@
+body {
+    font-family: "Hoefler Text", Georgia, "Times New Roman", serif;
+    background-color: #FFD700;
+    color: #1a1a1a;
+    text-align: center;
+    padding: 80px 20px;
+    margin: 0;
+    height: 100vh;
+}
+
+h1 {
+    font-size: 3.2rem;
+    margin-bottom: 30px;
+    font-weight: normal;
+}
+
+p {
+    font-size: 1.3rem;
+    max-width: 600px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #4EC6E9;
+    color: white;
+    padding: 18px 42px;
+    font-size: 1.4rem;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #3ab5d8;
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);;
+}

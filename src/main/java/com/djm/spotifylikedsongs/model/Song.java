@@ -46,6 +46,10 @@ public class Song {
         return ReleaseDateUtils.convertStringToDate(releaseDate);
     }
 
+    public String getReadableReleaseDate(){
+        return ReleaseDateUtils.makeDateStringReadable(releaseDate);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(name, artist, album, releaseDate, coverUrl);
@@ -55,7 +59,7 @@ public class Song {
     public String toString() {
         return name + "\n" +
                 artist + "\n" +
-                album + " (" + ReleaseDateUtils.makeDateStringReadable(releaseDate) + ")\n"
+                album + " (" + this.getReadableReleaseDate() + ")\n"
                 + coverUrl + "\n"
                 + "***** \n";
     }

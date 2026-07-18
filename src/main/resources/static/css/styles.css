@@ -39,3 +39,53 @@ p {
     transform: translateY(-4px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);;
 }
+
+.songs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 25px;
+    padding: 40px 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.song-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease;
+}
+
+.song-card:hover {
+    transform: translateY(-8px);
+}
+
+.song-card img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+}
+
+.song-info {
+    padding: 18px;
+    text-align: left;
+}
+
+.song-name {
+    font-size: 1.35rem;
+    margin: 0 0 6px 0;
+    font-weight: bold;
+    color: #1a1a1a;
+}
+
+.artist {
+    font-size: 1.1rem;
+    color: #333;
+    margin: 0 0 8px 0;
+}
+
+.album {
+    font-size: 0.98rem;
+    color: #555;
+}

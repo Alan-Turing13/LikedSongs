@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -23,16 +24,20 @@ public class SongController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(SongController.class);
 
+    private final AppConfig config;
+
+    public SongController(AppConfig config){
+        this.config = config;
+    }
+
     @GetMapping("/")
     public String landingPage(){
         return "home";
     }
 
     @GetMapping("/get")
-    public String getSongs(@RegisteredOAuth2AuthorizedClient("spotify")OAuth2AuthorizedClient authClient) throws Exception{
-
-        // config
-        AppConfig config = AppConfig.load();
+    public String getSongs(@RegisteredOAuth2AuthorizedClient("spotify")OAuth2AuthorizedClient authClient,
+       Model model) throws Exception{
 
         // OAuth
         String accessToken = authClient.getAccessToken().getTokenValue();
@@ -47,11 +52,13 @@ public class SongController {
         }
 
         ArrayList<Song> likedSongs = songOrder.getLikedSongs();
-        WriteFile writer = new WriteFile();
+        model.addAttribute("songs", likedSongs);
 
-        if (likedSongs != null && !likedSongs.isEmpty()) {
-            writer.writeFile(likedSongs, config.getOutputFilePath());
-        }
+//        WriteFile writer = new WriteFile();
+//
+//        if (likedSongs != null && !likedSongs.isEmpty()) {
+//            writer.writeFile(likedSongs, config.getOutputFilePath());
+//        }
         LOGGER.info("Liked songs added.");
         return "songs";
     }

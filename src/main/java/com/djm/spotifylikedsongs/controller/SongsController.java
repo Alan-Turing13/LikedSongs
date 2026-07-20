@@ -7,7 +7,6 @@ import com.djm.spotifylikedsongs.config.AppConfig;
 import com.djm.spotifylikedsongs.model.Song;
 import com.djm.spotifylikedsongs.service.SongOrder;
 import com.djm.spotifylikedsongs.service.SpotifyClient;
-import com.djm.spotifylikedsongs.service.WriteFile;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,13 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/liked-songs")
-public class SongController {
+public class SongsController {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(SongController.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(SongsController.class);
 
     private final AppConfig config;
 
-    public SongController(AppConfig config){
+    public SongsController(AppConfig config){
         this.config = config;
     }
 

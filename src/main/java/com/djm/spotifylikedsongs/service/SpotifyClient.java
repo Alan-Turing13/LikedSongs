@@ -1,27 +1,35 @@
 package com.djm.spotifylikedsongs.service;
 
+import com.djm.spotifylikedsongs.config.AppConfig;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import okhttp3.*;
+import org.springframework.stereotype.Service;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
+import java.util.UUID;
 
+@Service
 public class SpotifyClient {
-    private OkHttpClient client;
+    private OkHttpClient httpClient;
     private ObjectMapper objectMapper;
+    private AppConfig appConfig;
+    private static final String tokenUri = "https://accounts.spotify.com/api/token";
+    private static final String redirect = "http://127.0.0.1:8888/callback";
 
-    public SpotifyClient(){
-        this.client = new OkHttpClient();
+    public SpotifyClient(AppConfig appConfig){
+        this.httpClient = new OkHttpClient();
         this.objectMapper = new ObjectMapper();
-    }
-
-    public SpotifyClient(OkHttpClient c, ObjectMapper o){
-        this.client = c;
-        this.objectMapper = o;
+        this.appConfig = appConfig;
     }
 
     public List<JsonNode> getLikedSongs(String accessToken, int offset){
@@ -33,7 +41,7 @@ public class SpotifyClient {
                 .header("Authorization", "Bearer " + accessToken)
                 .build();
 
-        try (Response response = client.newCall(request).execute()) {
+        try (Response response = httpClient.newCall(request).execute()) {
             if (!response.isSuccessful()) {
                 throw new IOException("Error getting the songs: " + response);
             } else {
@@ -59,5 +67,58 @@ public class SpotifyClient {
             e.getMessage().toString();
             return null;
         }
+    }
+
+    public String getAccessToken(String code){
+        String formBody = "grant_type=authorization_code" +
+                "&code=" + code +
+                "&redirect_uri=" + URLEncoder.encode(redirect, StandardCharsets.UTF_8);
+
+        RequestBody body = RequestBody.create(formBody,
+                MediaType.parse("application/x-www-form-urlencoded"));
+
+        String encodedCredentials = Base64.getEncoder()
+                .encodeToString((appConfig.getClientId() + ":" + appConfig.getClientSecret()).getBytes());
+
+        Request request = new Request.Builder()
+                .url(tokenUri)
+                .post(body)
+                .addHeader("Content-type", "application/x-www-form-urlencoded")
+                .addHeader("Authorization", "Basic " + encodedCredentials)
+                .build();
+
+        try (Response response = httpClient.newCall(request).execute()) {
+            System.out.println("Access token Http response: " + response);
+
+            String jsonResponse = response.body().string();
+
+            if (!response.isSuccessful()){
+                try {
+                    JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
+                    String error = jsonObject.has("error") ?
+                            jsonObject.get("error").getAsString() : "Unknown error";
+                    throw new RuntimeException("Failed to get access token: " + error);
+                } catch (Exception e) {
+                    throw new RuntimeException("Failed to get access token. Http Status: " + response.code());
+                }
+            }
+
+            JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
+            JsonElement tokenElement = jsonObject.get("access_token");
+
+            return tokenElement.getAsString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to obtain access token");
+        }
+    }
+
+    public String getAuthorizationUrl(){
+        return "https://accounts.spotify.com/en/authorize?response_type=code&client_id=" +
+                appConfig.getClientId() +
+                "&scope=user-library-read&redirect_uri=" +
+                redirect +
+                "&state=" + UUID.randomUUID();
     }
 }

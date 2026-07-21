@@ -1,14 +1,14 @@
 Here’s a Spring Boot app that allows you to get all your liked songs from Spotify with the click of a button.
 
-<img src="src/main/resources/static/examples/landing-page-screenshot.png" width=50% alt="landing page">
+<img src="src/main/resources/static/examples/landing-page-screenshot.png" width=75% alt="landing page">
 
 You’ll be redirected to Spotify to log in to your account.
 
-<img src="src/main/resources/static/examples/login-screenshot.png" width=50% alt="spotify login">
+<img src="src/main/resources/static/examples/login-screenshot.png" width=75% alt="spotify login">
 
 Your liked songs will then be displayed for you to print.
 
-<img src="src/main/resources/static/examples/songs-screenshot.png" width=50% alt="songs page">
+<img src="src/main/resources/static/examples/songs-screenshot.png" width=100% alt="songs page">
 
 It makes use of the following frameworks:
 

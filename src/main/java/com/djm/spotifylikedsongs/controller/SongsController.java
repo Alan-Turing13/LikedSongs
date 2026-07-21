@@ -20,17 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class SongsController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(SongsController.class);
-//    private final AppConfig config;
 
     @Autowired
     SpotifyClient spotifyClient;
 
     @Autowired
     SongsService songsService;
-
-//    public SongsController(AppConfig config){
-//        this.config = config;
-//    }
 
     @GetMapping("/")
     public String landingPage(){

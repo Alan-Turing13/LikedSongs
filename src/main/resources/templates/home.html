@@ -6,12 +6,12 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-<h1>Spotify Liked Songs Exporter</h1>
+<h1>Liked Songs Exporter</h1>
 
-<p>Do you want to terminate your Spotify account but not lose all the songs you've saved? Then this button could come to your aid.</p>
+<p>Do you want to terminate your Spotify account but not lose all the songs you've saved?</p>
+<p>Then this button could come to your aid.</p>
 
-<form action="/login" method="get">
-<label for="order">Song order:</label>
+<form action="/login" method="get" class="order-form">
     <select name="order" id="order">
         <option value="chronological">Chronological</option>
         <option value="alphabetical">Alphabetical</option>

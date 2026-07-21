@@ -7,8 +7,8 @@
 
 </head>
 <body>
-<h1>Your Liked Songs</h1>
-<p th:text="'Total songs exported: ' + ${songs.size()} + ' || Order: ' + ${order}"></p>
+<h1>Liked Songs</h1>
+<p th:text="'Saved: ' + ${songs.size()} + ' || Order: ' + ${order}"></p>
 <div class="songs-grid">
     <div class="song-card" th:each="song : ${songs}">
         <img th:src="${song.coverUrl}" th:alt="${song.name}">

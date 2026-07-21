@@ -56,10 +56,11 @@ public class SongsController {
 
         // OAuth
         String accessToken = spotifyClient.getAccessToken(code);
+        List<JsonNode> likedSongsJson = spotifyClient.getLikedSongsJson(accessToken, 0);
 
-        for (int offset = 0; offset < config.getTotalSongs(); offset+=50) {
-            List<JsonNode> songsJson = spotifyClient.getLikedSongs(accessToken, offset);
-            songsService.addSongs(songsJson);
+        for (int offset = 0; offset < spotifyClient.getTotalSongsAmount(); offset+=50) {
+            likedSongsJson = spotifyClient.getLikedSongsJson(accessToken, offset);
+            songsService.addSongs(likedSongsJson);
         }
 
         ArrayList<Song> likedSongs = songsService.getLikedSongs();

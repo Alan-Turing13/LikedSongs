@@ -42,7 +42,7 @@ class SpotifyClientTest {
     @Test
     void getLikedSongsTest() throws IOException {
         String accessToken = "fake-token";
-        int offset = 50;
+        int offset = 0;
         String json = """
             {
               "items": [
@@ -58,7 +58,7 @@ class SpotifyClientTest {
         when(mockResponse.body()).thenReturn(mockResponseBody);
         when(mockResponseBody.string()).thenReturn(json);
 
-        List<JsonNode> result = likedSongs.getLikedSongs(accessToken, offset);
+        List<JsonNode> result = likedSongs.getLikedSongsJson(accessToken, offset);
 
         assertNotNull(result);
         assertEquals(2, result.size());
@@ -71,7 +71,7 @@ class SpotifyClientTest {
         when(mockClient.newCall(any())).thenReturn(mockCall);
         when(mockCall.execute()).thenThrow(new IOException("Network error"));
 
-        List<JsonNode> result = likedSongs.getLikedSongs("token", 0);
+        List<JsonNode> result = likedSongs.getLikedSongsJson("token", 0);
         assertNull(result);
     }
 

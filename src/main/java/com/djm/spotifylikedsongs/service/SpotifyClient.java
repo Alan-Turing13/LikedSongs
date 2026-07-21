@@ -25,6 +25,7 @@ public class SpotifyClient {
     private final ObjectMapper objectMapper;
     private final AppConfig appConfig;
     private static final String redirect = "http://127.0.0.1:8081/callback";
+    private int totalSongsAmount;
 
     // Primary constructor
     @Autowired
@@ -40,11 +41,11 @@ public class SpotifyClient {
         this.objectMapper = objMapper;
         this.appConfig = new AppConfig(
                "spring.security.oauth2.client.registration.spotify.client-id",
-            "spring.security.oauth2.client.registration.spotify.client-secret",
-             100);
+            "spring.security.oauth2.client.registration.spotify.client-secret"
+        );
     }
 
-    public List<JsonNode> getLikedSongs(String accessToken, int offset){
+    public List<JsonNode> getLikedSongsJson(String accessToken, int offset){
 
         String getBody = "market=GB&limit=50&offset=" + String.valueOf(offset);
 
@@ -65,13 +66,15 @@ public class SpotifyClient {
             JsonNode root = objectMapper.readTree(jsonResponse);
             JsonNode items = root.get("items");
 
+            if (!(root.get("total") == null)) {
+                totalSongsAmount = Integer.parseInt(String.valueOf(root.get("total")));
+            } else {totalSongsAmount = 0;}
+
             if (items != null && items.isArray()) {
                 for (JsonNode item : items) {
                     rawSongs.add(item);
                 }
-            } else {
-                System.err.println("No songs were returned. ");
-            }
+            } else {System.err.println("No songs were returned. ");}
             return rawSongs;
 
         } catch (Exception e){
@@ -79,6 +82,10 @@ public class SpotifyClient {
             e.getMessage().toString();
             return null;
         }
+    }
+
+    public int getTotalSongsAmount() {
+        return totalSongsAmount;
     }
 
     public String getAccessToken(String code){
@@ -133,4 +140,5 @@ public class SpotifyClient {
                 redirect +
                 "&state=" + UUID.randomUUID();
     }
+
 }

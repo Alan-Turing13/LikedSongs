@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import okhttp3.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.awt.*;
@@ -25,10 +26,22 @@ public class SpotifyClient {
     private final AppConfig appConfig;
     private static final String redirect = "http://127.0.0.1:8081/callback";
 
+    // Primary constructor
+    @Autowired
     public SpotifyClient(AppConfig appConfig){
         this.httpClient = new OkHttpClient();
         this.objectMapper = new ObjectMapper();
         this.appConfig = appConfig;
+    }
+
+    // Test constructor
+    public SpotifyClient(OkHttpClient mockClient, ObjectMapper objMapper){
+        this.httpClient = mockClient;
+        this.objectMapper = objMapper;
+        this.appConfig = new AppConfig(
+               "spring.security.oauth2.client.registration.spotify.client-id",
+            "spring.security.oauth2.client.registration.spotify.client-secret",
+             100);
     }
 
     public List<JsonNode> getLikedSongs(String accessToken, int offset){

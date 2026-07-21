@@ -43,7 +43,7 @@ public class SongsController {
     public String spotifyLogin(HttpServletResponse response) throws IOException{
         try {
             String authUrl = spotifyClient.getAuthorizationUrl();
-            LOGGER.info("\n***Redirecting to " + authUrl + " ***\n");
+            LOGGER.info("Redirecting to " + authUrl);
             return "redirect:" + authUrl;
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,12 +64,6 @@ public class SongsController {
 
         ArrayList<Song> likedSongs = songsService.getLikedSongs();
         model.addAttribute("songs", likedSongs);
-
-//        WriteFile writer = new WriteFile();
-//
-//        if (likedSongs != null && !likedSongs.isEmpty()) {
-//            writer.writeFile(likedSongs, config.getOutputFilePath());
-//        }
         LOGGER.info("Liked songs added.");
         return "songs";
     }

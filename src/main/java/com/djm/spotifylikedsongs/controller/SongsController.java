@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.djm.spotifylikedsongs.config.AppConfig;
 import com.djm.spotifylikedsongs.model.Song;
-import com.djm.spotifylikedsongs.service.SongOrder;
+import com.djm.spotifylikedsongs.service.SongsService;
 import com.djm.spotifylikedsongs.service.SpotifyClient;
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -27,6 +26,9 @@ public class SongsController {
 
     @Autowired
     SpotifyClient spotifyClient;
+
+    @Autowired
+    SongsService songsService;
 
     public SongsController(AppConfig config){
         this.config = config;
@@ -55,14 +57,12 @@ public class SongsController {
         // OAuth
         String accessToken = spotifyClient.getAccessToken(code);
 
-        SongOrder songOrder = new SongOrder();
-
         for (int offset = 0; offset < config.getTotalSongs(); offset+=50) {
             List<JsonNode> songsJson = spotifyClient.getLikedSongs(accessToken, offset);
-            songOrder.addSongs(songsJson);
+            songsService.addSongs(songsJson);
         }
 
-        ArrayList<Song> likedSongs = songOrder.getLikedSongs();
+        ArrayList<Song> likedSongs = songsService.getLikedSongs();
         model.addAttribute("songs", likedSongs);
 
 //        WriteFile writer = new WriteFile();

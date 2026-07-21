@@ -3,15 +3,17 @@ package com.djm.spotifylikedsongs.service;
 import com.djm.spotifylikedsongs.model.Song;
 import com.djm.spotifylikedsongs.util.ReleaseDateUtils;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class SongOrder {
+@Service
+public class SongsService {
     private List<Song> likedSongs;
 
-    public SongOrder() {
+    public SongsService() {
         this.likedSongs = new ArrayList<>();
     }
 
@@ -32,7 +34,6 @@ public class SongOrder {
             String coverUrl = getTextOrEmpty(
                     trackInfo.path("album").path("images").get(0), "url"
             );
-            System.out.println("Song " + name + " has coverUrl " + coverUrl);
             likedSongs.add(new Song(name, artist, album, releaseDate, coverUrl));
         }
     }

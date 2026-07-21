@@ -32,16 +32,6 @@ public class SecurityConfig {
                         "/error")
                     .permitAll()
                 .anyRequest().authenticated()
-            ).addFilterBefore(new OncePerRequestFilter() {
-                                      @Override
-                                      protected void doFilterInternal(
-                                              HttpServletRequest request,
-                                              HttpServletResponse response,
-                                              FilterChain filterChain)
-                                              throws ServletException, IOException {
-                                          filterChain.doFilter(request, response);
-                                      }
-                                          }, OAuth2LoginAuthenticationFilter.class
             ).oauth2Login(oauth2 -> oauth2.disable()
             ).csrf(c -> c.disable());
         return http.build();

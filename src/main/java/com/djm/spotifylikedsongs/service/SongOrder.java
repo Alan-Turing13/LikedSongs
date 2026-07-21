@@ -32,6 +32,7 @@ public class SongOrder {
             String coverUrl = getTextOrEmpty(
                     trackInfo.path("album").path("images").get(0), "url"
             );
+            System.out.println("Song " + name + " has coverUrl " + coverUrl);
             likedSongs.add(new Song(name, artist, album, releaseDate, coverUrl));
         }
     }

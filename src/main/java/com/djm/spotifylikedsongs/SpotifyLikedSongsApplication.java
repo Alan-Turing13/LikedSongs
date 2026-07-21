@@ -10,7 +10,7 @@ public class SpotifyLikedSongsApplication {
         try {
             SpringApplication.run(SpotifyLikedSongsApplication.class, args);
         } catch (Exception e){
-            System.err.println("Couldn't export liked songs: " + e.getMessage());
+            System.err.println(e.getMessage());
             e.printStackTrace();
         }
     }

@@ -46,6 +46,22 @@ public class Song {
         return ReleaseDateUtils.convertStringToDate(releaseDate);
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getArtist() {
+        return artist;
+    }
+
+    public String getAlbum() {
+        return album;
+    }
+
+    public String getCoverUrl() {
+        return coverUrl;
+    }
+
     public String getReadableReleaseDate(){
         return ReleaseDateUtils.makeDateStringReadable(releaseDate);
     }

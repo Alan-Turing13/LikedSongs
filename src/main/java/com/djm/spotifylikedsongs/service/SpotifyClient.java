@@ -20,11 +20,10 @@ import java.util.UUID;
 
 @Service
 public class SpotifyClient {
-    private OkHttpClient httpClient;
-    private ObjectMapper objectMapper;
-    private AppConfig appConfig;
-    private static final String tokenUri = "https://accounts.spotify.com/api/token";
-    private static final String redirect = "http://127.0.0.1:8888/callback";
+    private final OkHttpClient httpClient;
+    private final ObjectMapper objectMapper;
+    private final AppConfig appConfig;
+    private static final String redirect = "http://127.0.0.1:8081/callback";
 
     public SpotifyClient(AppConfig appConfig){
         this.httpClient = new OkHttpClient();
@@ -81,7 +80,7 @@ public class SpotifyClient {
                 .encodeToString((appConfig.getClientId() + ":" + appConfig.getClientSecret()).getBytes());
 
         Request request = new Request.Builder()
-                .url(tokenUri)
+                .url("https://accounts.spotify.com/api/token")
                 .post(body)
                 .addHeader("Content-type", "application/x-www-form-urlencoded")
                 .addHeader("Authorization", "Basic " + encodedCredentials)

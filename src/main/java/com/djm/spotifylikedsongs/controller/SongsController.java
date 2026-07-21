@@ -13,8 +13,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/liked-songs")
 public class SongsController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(SongsController.class);
@@ -42,12 +39,18 @@ public class SongsController {
 
     @GetMapping("/login")
     public String spotifyLogin(HttpServletResponse response) throws IOException{
-        String authUrl = spotifyClient.getAuthorizationUrl();
-        return "redirect:" + authUrl;
+        try {
+            String authUrl = spotifyClient.getAuthorizationUrl();
+            LOGGER.info("\n***Redirecting to " + authUrl + " ***\n");
+            return "redirect:" + authUrl;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/";
+        }
     }
 
     @GetMapping("/callback")
-    public String getSongs(@RequestParam String code, Model model) throws Exception{
+    public String getSongs(@RequestParam("code") String code, Model model) throws Exception{
 
         // OAuth
         String accessToken = spotifyClient.getAccessToken(code);

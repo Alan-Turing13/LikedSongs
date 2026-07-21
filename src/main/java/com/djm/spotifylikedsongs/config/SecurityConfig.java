@@ -27,7 +27,9 @@ public class SecurityConfig {
                     .permitAll()
                 .anyRequest().authenticated()
             ).oauth2Login(oauth2 -> oauth2.disable()
-            ).csrf(c -> c.disable());
+            ).csrf(c -> c.disable()
+            ).sessionManagement(
+    session -> session.sessionFixation().none());
         return http.build();
     }
 }

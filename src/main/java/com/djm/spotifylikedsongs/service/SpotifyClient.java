@@ -133,12 +133,12 @@ public class SpotifyClient {
         }
     }
 
-    public String getAuthorizationUrl(){
+    public String getAuthorizationUrl(String songOrder){
         return "https://accounts.spotify.com/en/authorize?response_type=code&client_id=" +
                 appConfig.getClientId() +
                 "&scope=user-library-read&redirect_uri=" +
                 redirect +
-                "&state=" + UUID.randomUUID();
+                "&state=" + songOrder + ":" + UUID.randomUUID();
     }
 
 }

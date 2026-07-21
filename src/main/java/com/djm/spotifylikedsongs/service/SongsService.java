@@ -5,9 +5,7 @@ import com.djm.spotifylikedsongs.util.ReleaseDateUtils;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class SongsService {
@@ -17,9 +15,30 @@ public class SongsService {
         this.likedSongs = new ArrayList<>();
     }
 
-    public ArrayList<Song> getLikedSongs() {
-        likedSongs.sort(Comparator.comparing(Song::getReleaseDateAsLocalDate));
-        return (ArrayList<Song>) likedSongs;
+    public ArrayList<Song> eliminateDuplicates(){
+        return new ArrayList<>(new HashSet<>(likedSongs));
+    }
+
+    public ArrayList<Song> getLikedSongs(){
+        return eliminateDuplicates();
+    }
+
+    public ArrayList<Song> getLikedSongsChronologically() {
+        ArrayList<Song> formattedChronList = eliminateDuplicates();
+        formattedChronList.sort(Comparator.comparing(Song::getReleaseDateAsLocalDate));
+        return formattedChronList;
+    }
+
+    public ArrayList<Song> getLikedSongsAlphabetically(){
+        ArrayList<Song> formattedAlphaList = eliminateDuplicates();
+        formattedAlphaList.sort(Comparator.comparing(Song::getName, String.CASE_INSENSITIVE_ORDER));
+        return formattedAlphaList;
+    }
+
+    public ArrayList<Song> getLikedSongsRandomly(){
+        ArrayList<Song> formattedAlphaList = eliminateDuplicates();
+        Collections.shuffle(formattedAlphaList);
+        return formattedAlphaList;
     }
 
     public void addSongs(List<JsonNode> json){

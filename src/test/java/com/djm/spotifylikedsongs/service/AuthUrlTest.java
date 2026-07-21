@@ -14,7 +14,7 @@ class AuthUrlTest {
     @org.junit.jupiter.api.Test
     void getCodeTest() {
         assertDoesNotThrow(() -> {
-            String authUrl = spotifyClient.getAuthorizationUrl();
+            String authUrl = spotifyClient.getAuthorizationUrl("chronological");
 
             assertNotNull(authUrl, "Authentication URL cannot be null");
             assertFalse(authUrl.isBlank(), "Authentication URL cannot be empty");

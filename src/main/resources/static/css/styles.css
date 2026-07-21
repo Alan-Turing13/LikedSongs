@@ -35,58 +35,10 @@ p {
     margin-top: 10px;
 }
 
-.order-form label {
-    font-family: "Hoefler Text", Georgia, "Times New Roman", serif;
-    font-size: 1.11rem;
-    color: #1a1a1a;
-}
-
 /* Dropdown wrapper */
 .select-wrapper {
     position: relative;
     width: 280px;
-}
-
-.select-wrapper select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    width: 100%;
-    padding: 16px 48px 16px 20px;
-    font-family: "Hoefler Text", Georgia, "Times New Roman", serif;
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: white;
-    background-color: #4EC6E9;
-    border: none;
-    border-radius: 50px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: center;
-}
-
-.select-wrapper select:hover {
-    background-color: #3ab5d8;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.select-wrapper select:focus {
-    outline: none;
-    box-shadow: 0 0 0 4px rgba(78, 198, 233, 0.4);
-}
-
-/* Dropdown arrow */
-.select-wrapper::after {
-    content: "▾";
-    font-size: 1.4rem;
-    color: white;
-    position: absolute;
-    right: 22px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
 }
 
 /* Button spacing */
@@ -100,6 +52,7 @@ p {
     background-color: #4EC6E9;
     color: white;
     padding: 18px 42px;
+    font-family: "Hoefler Text", Georgia, "Times New Roman", serif;
     font-size: 1.4rem;
     text-decoration: none;
     border-radius: 50px;

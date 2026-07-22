@@ -6,18 +6,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class AppConfig {
     private final String clientId;
-    private final String clientSecret;
+    private final String spotifyRedirectUri;
 
     public AppConfig(
-        @Value("${spring.security.oauth2.client.registration.spotify.client-id}") String clientId,
-        @Value("${spring.security.oauth2.client.registration.spotify.client-secret}") String clientSecret
+        @Value("${client-id}") String clientId,
+        @Value("${spotify.redirect-uri}") String redirectUri
     ) {
         this.clientId = clientId;
-        this.clientSecret = clientSecret;
+        this.spotifyRedirectUri = redirectUri;
     }
 
-    public String getClientSecret() {
-        return clientSecret;
+    public String getSpotifyRedirectUri() {
+        return spotifyRedirectUri;
     }
 
     public String getClientId() {

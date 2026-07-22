@@ -22,6 +22,7 @@ target/
 ## Properties ##
 application.properties
 application-local.properties
+application-spring-security.properties
 *.env
 
 ### NetBeans ###

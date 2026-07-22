@@ -35,15 +35,17 @@ p {
     margin-top: 10px;
 }
 
-/* Dropdown wrapper */
-.select-wrapper {
-    position: relative;
-    width: 280px;
+.select-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-/* Button spacing */
-.order-form .btn {
-    margin-top: 8px;
+.order-label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+    white-space: nowrap;
 }
 
 /* Button */

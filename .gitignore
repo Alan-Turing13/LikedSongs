@@ -20,9 +20,7 @@ target/
 *.ipr
 
 ## Properties ##
-application.properties
-application-local.properties
-application-spring-security.properties
+*.properties
 *.env
 
 ### NetBeans ###

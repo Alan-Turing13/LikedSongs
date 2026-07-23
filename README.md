@@ -1,4 +1,4 @@
-Here’s a Spring Boot app that allows you to get all your liked songs from Spotify with the click of a button.
+Here’s a Spring Boot app that allows you to get all your liked songs from Spotify with the click of a button. It's currently deployed - feel free to [try it out](https://likedsongs.onrender.com/).
 
 <img src="src/main/resources/static/examples/landing-page-screenshot.png" width=75% alt="landing page">
 

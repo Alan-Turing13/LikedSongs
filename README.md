@@ -14,13 +14,12 @@ It makes use of the following frameworks:
 
 * Spring Beans for autowiring service classes and configuration management (IoC)
 * OkHttp Client to manage Spotify OAuth 2.0 and token flows
+* SHA-256 hashing and Base64 encoding for Proof Key for Code Exchange authorisation
 * Google Gson and Jackson for robust parsing of Spotify API responses
 * Thymeleaf to display the album objects on an HTML template
-* Modern java.time API for ordering songs chronologically by release date
 * Mockito and JUnit for secure unit tests of OAuth, Json parsing and Object handling
 
-This app is remains a work in progress as I move to:
-* deploy using PKCE authorisation 
+This app remains a work in progress as I move to:
 * persist users’ songs to a database
 * provide optional song recommendations for further music discovery
 

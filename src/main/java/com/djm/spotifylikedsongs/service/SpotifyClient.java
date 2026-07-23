@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.awt.*;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

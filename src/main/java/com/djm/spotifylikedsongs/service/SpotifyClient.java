@@ -160,4 +160,9 @@ public class SpotifyClient {
                 "&code_challenge=" + codeChallenge;
     }
 
+    // test method
+    public void setCodeVerifier(String codeVerifier) {
+        this.codeVerifier = codeVerifier;
+    }
+
 }

@@ -36,10 +36,13 @@ class AuthenticationTest {
     @BeforeEach
     void setUp(){
         spotifyClient = new SpotifyClient(mockClient, new ObjectMapper());
+        spotifyClient.setCodeVerifier("E9L6k4_x2jN8QZpA-L0sB1vW3yT5uI7oP9rE2aS4dF6gH8jK0lM2nO4pQ6rS8tU1");
     }
 
     @Test
     void getAccessTokenTest() throws IOException {
+
+
         String fakeJsonResponse = """
             {
                 "access_token": "BQD123456789abcdef",

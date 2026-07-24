@@ -55,7 +55,7 @@ class SongsServiceTest {
             """;
         List<JsonNode> jsonNodes = objectMapper.readValue(json, new TypeReference<>() {});
         songsService.addSongs(jsonNodes);
-        ArrayList orderedSongs = songsService.getLikedSongs();
+        ArrayList orderedSongs = songsService.getLikedSongsChronologically();
 
         Song expected = new Song(
                 "Song A",
@@ -65,5 +65,6 @@ class SongsServiceTest {
                 "https://lh3.googleusercontent.com/fake/test-image-abcdef987654.png");
 
         assertEquals(expected, orderedSongs.get(0));
+        assertEquals(2, orderedSongs.size());
     }
 }
